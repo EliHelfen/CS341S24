@@ -1,8 +1,6 @@
 CREATE DATABASE IF NOT EXISTS AppointmentSoftware;
 USE AppointmentSoftware;
 
-
-
 CREATE TABLE User (
     UserID INT AUTO_INCREMENT,
     PRIMARY KEY (UserID)
