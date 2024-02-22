@@ -1,4 +1,3 @@
-
 -- -----------------------------------------------------
 -- Schema appointmentSoftwareDB
 -- -----------------------------------------------------
@@ -16,7 +15,7 @@ USE `appointmentSoftwareDB` ;
 DROP TABLE IF EXISTS `appointmentSoftwareDB`.`User` ;
 
 CREATE TABLE IF NOT EXISTS `appointmentSoftwareDB`.`User` (
-  `idUser` INT NOT NULL,
+  `idUser` INT NOT NULL AUTO_INCREMENT,
   `Username` VARCHAR(45) NULL,
   `Password` VARCHAR(45) NULL,
   `Email` VARCHAR(45) NULL,
@@ -32,7 +31,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `appointmentSoftwareDB`.`Appointment` ;
 
 CREATE TABLE IF NOT EXISTS `appointmentSoftwareDB`.`Appointment` (
-  `idAppointment` INT NOT NULL,
+  `idAppointment` INT NOT NULL AUTO_INCREMENT,
   `DateTime` DATETIME NULL,
   `Type` ENUM('Medical', 'Beauty', 'Fitness') NULL,
   `Information` VARCHAR(45) NULL,
@@ -46,7 +45,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `appointmentSoftwareDB`.`AppointmentSlot` ;
 
 CREATE TABLE IF NOT EXISTS `appointmentSoftwareDB`.`AppointmentSlot` (
-  `idAppointmentSlot` INT NOT NULL,
+  `idAppointmentSlot` INT NOT NULL AUTO_INCREMENT,
   `DateTime` DATETIME NULL,
   `Type` ENUM('Medical', 'Beauty', 'Fitness') NULL,
   `Information` VARCHAR(45) NULL,
@@ -60,7 +59,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `appointmentSoftwareDB`.`UserAppointment` ;
 
 CREATE TABLE IF NOT EXISTS `appointmentSoftwareDB`.`UserAppointment` (
-  `idUserAppointment` INT NOT NULL,
+  `idUserAppointment` INT NOT NULL AUTO_INCREMENT,
   `Appointment_idAppointment` INT NOT NULL,
   `User_idUser` INT NOT NULL,
   PRIMARY KEY (`idUserAppointment`, `Appointment_idAppointment`, `User_idUser`),
@@ -85,10 +84,10 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `appointmentSoftwareDB`.`ProviderAppointment` ;
 
 CREATE TABLE IF NOT EXISTS `appointmentSoftwareDB`.`ProviderAppointment` (
-  `idProviderAppointment` INT NOT NULL,
+  `idProviderAppointment` INT NOT NULL AUTO_INCREMENT,
   `User_idUser` INT NOT NULL,
-  `AppointmentSlot_idAppointmentSlot` INT NOT NULL,
-  `Appointment_idAppointment` INT NOT NULL,
+  `AppointmentSlot_idAppointmentSlot` INT,
+  `Appointment_idAppointment` INT,
   PRIMARY KEY (`idProviderAppointment`, `User_idUser`, `AppointmentSlot_idAppointmentSlot`, `Appointment_idAppointment`),
   INDEX `fk_ProviderAppointment_User1_idx` (`User_idUser` ASC) VISIBLE,
   INDEX `fk_ProviderAppointment_AppointmentSlot1_idx` (`AppointmentSlot_idAppointmentSlot` ASC) VISIBLE,
@@ -109,4 +108,3 @@ CREATE TABLE IF NOT EXISTS `appointmentSoftwareDB`.`ProviderAppointment` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
