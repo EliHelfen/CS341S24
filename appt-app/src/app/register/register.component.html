@@ -1,0 +1,29 @@
+<div class="container mt-5">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Register as:</h2>
+        
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="registrationType" [(ngModel)]="registrationType" value="user">
+            User
+          </label>
+        </div>
+        
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="registrationType" [(ngModel)]="registrationType" value="serviceProvider">
+            Service Provider
+          </label>
+        </div>
+
+        <div *ngIf="registrationType === 'user'" class="mt-3">
+          <app-user-register></app-user-register>
+        </div>
+
+        <div *ngIf="registrationType === 'serviceProvider'" class="mt-3">
+          <app-service-provider-register></app-service-provider-register>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,19 +1,21 @@
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-</head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
+    <div class="login-container p-4 bg-white border rounded">
+        <h2 class="text-center mb-4">Log in</h2>
         <form>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control form-control-sm" id="username" name="username" required>
+            </div>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control form-control-sm" id="password" name="password" required>
+            </div>
 
-            <button type="submit">Login</button>
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
         </form>
+        <div class="text-center mt-3">
+            <p>Don't have an account? <a href="/register">Sign Up</a></p>
+          </div>
     </div>
 </body>
