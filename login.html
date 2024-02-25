@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Book Appointments</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" typte="text/css" href="login.css">
+</head>
+<body> 
+
+    <div class="navbar">
+        <ul>
+            <li><a href="">Home</a></li>
+            <li><a href="">Book Appointment</a></li>
+            <li><a href="login.html">Log Out</a></li>
+        </ul>
+
+    </div>
+ 
+<div class="container">
+    <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Login to View Appointments</div>
+        <div class="panel-body">
+            <form id="form" method="get">
+                <label class="required-field" for="username"><b>Username:</b></label>
+                <input class="input" type="text" id="username" name="username">
+                <br><br>
+                <label class="required-field" for="password"><b>Password:</b></label>
+                <input class="input" type="password" id="password" name="password" maxlength="12">
+                <br><br>
+                <button  class="submit btn btn-primary" onclick="submit1()" >Login</button>
+                <br><br>
+                <label>Do not have an account:</label>
+                <button type="reset" class="btn btn-secondary" onclick="register()">Register Now</button>
+                
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        
+    
+    });
+
+    function register(){
+        window.location.href = "register.html";
+    }
+    
+
+    
+    function submit1(){
+        var user = document.getElementById("username").value;
+        if(user == "" || user == null){
+            alert("Enter a username.");
+        
+        }
+        var pass = document.getElementById("password").value;
+        if(pass == "" || pass == null){
+            alert("Enter a password.");
+   
+        }else{
+            if(user != "" && pass != ""){
+                console.log("you want to submit.");
+                
+                document.getElementById("form").action = "homePage.html?";
+                $('#form').submit();
+               
+                
+            }
+        }
+        
+    }
+</script>
+
+
+
+</body>
+</html>
