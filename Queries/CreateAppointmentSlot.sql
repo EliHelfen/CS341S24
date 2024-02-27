@@ -1,5 +1,5 @@
 INSERT INTO `AppointmentSlot` (`DateTime`,`Type`,`Information`)
 VALUES (value1,value2,value3)
 
-INSERT INTO `ProviderAppointment` (`User_idUser`,`AppointmentSlot_idAppointmentSlot`)
+INSERT INTO `ProviderAppointment` (`UserID`,`AppointmentSlotID`)
 VALUES (value1,value2)
