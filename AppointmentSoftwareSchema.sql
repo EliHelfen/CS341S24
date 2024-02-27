@@ -1,4 +1,3 @@
-
 -- -----------------------------------------------------
 -- Schema appointmentSoftwareDB
 -- -----------------------------------------------------
@@ -16,13 +15,13 @@ USE `appointmentSoftwareDB` ;
 DROP TABLE IF EXISTS `appointmentSoftwareDB`.`User` ;
 
 CREATE TABLE IF NOT EXISTS `appointmentSoftwareDB`.`User` (
-  `idUser` INT NOT NULL,
+  `UserID` INT NOT NULL AUTO_INCREMENT,
   `Username` VARCHAR(45) NULL,
   `Password` VARCHAR(45) NULL,
   `Email` VARCHAR(45) NULL,
   `Phone` VARCHAR(45) NULL,
   `Type` ENUM('user', 'provider', 'admin') NOT NULL,
-  PRIMARY KEY (`idUser`))
+  PRIMARY KEY (`UserID`))
 ENGINE = InnoDB;
 
 
@@ -32,11 +31,11 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `appointmentSoftwareDB`.`Appointment` ;
 
 CREATE TABLE IF NOT EXISTS `appointmentSoftwareDB`.`Appointment` (
-  `idAppointment` INT NOT NULL,
+  `AppointmentID` INT NOT NULL AUTO_INCREMENT,
   `DateTime` DATETIME NULL,
   `Type` ENUM('Medical', 'Beauty', 'Fitness') NULL,
   `Information` VARCHAR(45) NULL,
-  PRIMARY KEY (`idAppointment`))
+  PRIMARY KEY (`AppointmentID`))
 ENGINE = InnoDB;
 
 
@@ -46,11 +45,11 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `appointmentSoftwareDB`.`AppointmentSlot` ;
 
 CREATE TABLE IF NOT EXISTS `appointmentSoftwareDB`.`AppointmentSlot` (
-  `idAppointmentSlot` INT NOT NULL,
+  `AppointmentSlotID` INT NOT NULL AUTO_INCREMENT,
   `DateTime` DATETIME NULL,
   `Type` ENUM('Medical', 'Beauty', 'Fitness') NULL,
   `Information` VARCHAR(45) NULL,
-  PRIMARY KEY (`idAppointmentSlot`))
+  PRIMARY KEY (`AppointmentSlotID`))
 ENGINE = InnoDB;
 
 
@@ -60,20 +59,20 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `appointmentSoftwareDB`.`UserAppointment` ;
 
 CREATE TABLE IF NOT EXISTS `appointmentSoftwareDB`.`UserAppointment` (
-  `idUserAppointment` INT NOT NULL,
-  `Appointment_idAppointment` INT NOT NULL,
-  `User_idUser` INT NOT NULL,
-  PRIMARY KEY (`idUserAppointment`, `Appointment_idAppointment`, `User_idUser`),
-  INDEX `fk_UserAppointment_Appointment1_idx` (`Appointment_idAppointment` ASC) VISIBLE,
-  INDEX `fk_UserAppointment_User1_idx` (`User_idUser` ASC) VISIBLE,
+  `UserAppointmentID` INT NOT NULL AUTO_INCREMENT,
+  `AppointmentID` INT NOT NULL,
+  `UserID` INT NOT NULL,
+  PRIMARY KEY (`UserAppointmentID`, `AppointmentID`, `UserID`),
+  INDEX `fk_UserAppointment_Appointment1_idx` (`AppointmentID` ASC) VISIBLE,
+  INDEX `fk_UserAppointment_User1_idx` (`UserID` ASC) VISIBLE,
   CONSTRAINT `fk_UserAppointment_Appointment1`
-    FOREIGN KEY (`Appointment_idAppointment`)
-    REFERENCES `appointmentSoftwareDB`.`Appointment` (`idAppointment`)
+    FOREIGN KEY (`AppointmentID`)
+    REFERENCES `appointmentSoftwareDB`.`Appointment` (`AppointmentID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_UserAppointment_User1`
-    FOREIGN KEY (`User_idUser`)
-    REFERENCES `appointmentSoftwareDB`.`User` (`idUser`)
+    FOREIGN KEY (`UserID`)
+    REFERENCES `appointmentSoftwareDB`.`User` (`UserID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -85,28 +84,26 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `appointmentSoftwareDB`.`ProviderAppointment` ;
 
 CREATE TABLE IF NOT EXISTS `appointmentSoftwareDB`.`ProviderAppointment` (
-  `idProviderAppointment` INT NOT NULL,
-  `User_idUser` INT NOT NULL,
-  `AppointmentSlot_idAppointmentSlot` INT NOT NULL,
-  `Appointment_idAppointment` INT NOT NULL,
-  PRIMARY KEY (`idProviderAppointment`, `User_idUser`, `AppointmentSlot_idAppointmentSlot`, `Appointment_idAppointment`),
-  INDEX `fk_ProviderAppointment_User1_idx` (`User_idUser` ASC) VISIBLE,
-  INDEX `fk_ProviderAppointment_AppointmentSlot1_idx` (`AppointmentSlot_idAppointmentSlot` ASC) VISIBLE,
-  INDEX `fk_ProviderAppointment_Appointment1_idx` (`Appointment_idAppointment` ASC) VISIBLE,
+  `ProviderAppointmentID` INT NOT NULL AUTO_INCREMENT,
+  `UserID` INT NOT NULL,
+  `AppointmentSlotID` INT NOT NULL,
+  `AppointmentID` INT NOT NULL,
+  PRIMARY KEY (`ProviderAppointmentID`, `UserID`, `AppointmentSlotID`, `AppointmentID`),
+  INDEX `fk_ProviderAppointment_User1_idx` (`UserID` ASC) VISIBLE,
+  INDEX `fk_ProviderAppointment_AppointmentSlot1_idx` (`AppointmentSlotID` ASC) VISIBLE,
+  INDEX `fk_ProviderAppointment_Appointment1_idx` (`AppointmentID` ASC) VISIBLE,
   CONSTRAINT `fk_ProviderAppointment_User1`
-    FOREIGN KEY (`User_idUser`)
-    REFERENCES `appointmentSoftwareDB`.`User` (`idUser`)
+    FOREIGN KEY (`UserID`)
+    REFERENCES `appointmentSoftwareDB`.`User` (`UserID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ProviderAppointment_AppointmentSlot1`
-    FOREIGN KEY (`AppointmentSlot_idAppointmentSlot`)
-    REFERENCES `appointmentSoftwareDB`.`AppointmentSlot` (`idAppointmentSlot`)
+    FOREIGN KEY (`AppointmentSlotID`)
+    REFERENCES `appointmentSoftwareDB`.`AppointmentSlot` (`AppointmentSlotID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ProviderAppointment_Appointment1`
-    FOREIGN KEY (`Appointment_idAppointment`)
-    REFERENCES `appointmentSoftwareDB`.`Appointment` (`idAppointment`)
+    FOREIGN KEY (`AppointmentID`)
+    REFERENCES `appointmentSoftwareDB`.`Appointment` (`AppointmentID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
