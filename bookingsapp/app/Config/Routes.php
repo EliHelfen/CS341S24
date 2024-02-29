@@ -19,6 +19,8 @@ $routes->get('/appointment/book', 'AppointmentController::book');
 $routes->get('/appointment/create', 'AppointmentController::createAppointment');
 $routes->post('/AppointmentController/addAppointment', 'AppointmentController::addAppointment', ['as' => 'addAppointment']);
 $routes->post('/AppointmentController/viewAvailable', 'AppointmentController::viewAvailable', ['as' => 'viewAvailable']);
+$routes->get('/appointment/claimAppointment/(:segment)', 'AppointmentController::claimAppointment/$1');
+
 
 
 

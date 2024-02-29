@@ -89,7 +89,26 @@ class AppointmentController extends BaseController
         return view('Appointment/viewAvailable.php', ['appointments' => $appointments, 'user' => $user]);
     }
 
-    public function claimAppointment($id) {
+    public function claimAppointment($appointmentId = null) {
+        $users = new \App\Models\UserModel;
+        $id = session()->get('user');
+                       
+        $user = $users->find($id);
+
+        $appointmentModel = new \App\Models\AppointmentModel;
+
+        $data = [
+            'a_status' => 'booked',
+            'a_user' => $user['username'],
+            'a_userId' => $user['id']
+
+        ];
+
+        // $appointmentModel->where('a_id', $appointmentId)->set($data)->update();
+        $appointmentModel->update($appointmentId, $data);
+
+
+        return redirect()->to('/dashboard');
 
     }
 }
