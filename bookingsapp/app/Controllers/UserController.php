@@ -15,7 +15,7 @@ class UserController extends BaseController
             session()->remove('user');
         }
 
-        return view('User/login.php');
+        return redirect()->to('/');
 
 
     }
@@ -74,9 +74,12 @@ class UserController extends BaseController
         $id = session()->get('user');
 
         $user = $users->find($id);
+        $appointmentModel = new \App\Models\AppointmentModel;
+
+        $appointments = $appointmentModel->where('a_userId', $user['id'])->findAll();
 
 
-        return view('User/dashboard.php', ['user' => $user]);
+        return view('User/dashboard.php', ['user' => $user, 'appointments' => $appointments]);
 
     }
 }

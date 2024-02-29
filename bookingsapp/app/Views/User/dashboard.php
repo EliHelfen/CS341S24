@@ -44,32 +44,18 @@
                     <th scope="col">Date</th>
                     <th scope="col">Time</th>
                     <th scope="col">Type</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Service Provider</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">2/4</th>
-                    <td>3:00pm</td>
-                    <td>Beauty</td>
-                    <td>Sue</td>
-                    <td>Smith</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2/4</th>
-                    <td>3:00pm</td>
-                    <td>Beauty</td>
-                    <td>Sue</td>
-                    <td>Smith</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2/4</th>
-                    <td>3:00pm</td>
-                    <td>Feauty</td>
-                    <td>Sue</td>
-                    <td>Smith</td>
-                  </tr>
+                  <?php foreach ($appointments as $a): ?>
+                    <td><?= $a['a_date'] ?></td>
+                    <td><?= $a['a_time'] ?></td>
+                    <td><?= $a['a_type'] ?></td>
+                    <td><?= $a['a_description'] ?></td>
+                    <td><?= $a['a_serviceProvider'] ?></td>
+                  <?php endforeach; ?>  
                 </tbody>
             </table>
             <a href="<?php echo base_url(); ?>appointment/book">Book Appointment</a>

@@ -28,9 +28,9 @@
                 <label class="required-field" for="password"><b>Password:</b></label>
                 <input class="input" type="password" id="password" name="password" maxlength="12">
                 <br><br>
-                <button class="btn btn-primary" type="submit">Register</button>
+                <button class="btn btn-primary" type="submit">Login</button>
                 <br><br>
-                <p>Dont have an account? Register <a href="<?php echo base_url(); ?>/UserController/dashboard">here</a></p>
+                <p>Dont have an account? Register <a href="<?php echo base_url(); ?>register">here</a></p>
                 
             </form>
         </div>

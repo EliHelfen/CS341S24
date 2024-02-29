@@ -58,13 +58,6 @@
                     <td><?= $a['a_serviceProvider'] ?></td>
                     <td><a href="<?php echo base_url(); ?>appointment/claimAppointment/<?= $a['id']?>">Book Appointment</a></td>
                   <?php endforeach; ?>  
-                  <tr>
-                    <th scope="row">2/4</th>
-                    <td>3:00pm</td>
-                    <td>Beauty</td>
-                    <td>Sue</td>
-                    <td>Smith</td>
-                  </tr>
                 </tbody>
             </table>
             <a href="<?php echo base_url(); ?>appointment/book">Book Appointment</a>
