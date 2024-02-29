@@ -13,6 +13,9 @@ $routes->post('/UserController/attemptLogin', 'UserController::attemptLogin', ['
 $routes->get('/dashboard', 'UserController::dashboard');
 
 $routes->get('/appointment/book', 'AppointmentController::book');
+$routes->get('/appointment/create', 'AppointmentController::createAppointment');
+$routes->post('/AppointmentController/addAppointment', 'AppointmentController::addAppointment', ['as' => 'addAppointment']);
+
 
 
 

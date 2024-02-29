@@ -45,6 +45,7 @@
                 <br><br>
                 <label class="required-field" for="spType" id="spTypeQ" hidden><b>Type of Service Provider:</b></label>
                 <select class="form-select" id="spType" name="spType" hidden >
+                    <option value=""></option>
                     <option value="1">Medical</option>
                     <option value="2">Beauty</option>
                     <option value="3">Fitness</option>
