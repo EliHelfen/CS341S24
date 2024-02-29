@@ -8,6 +8,7 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'UserController::login');
 $routes->get('/register', 'UserController::register');
 $routes->post('/UserController/attemptRegister', 'UserController::attemptRegister', ['as' => 'attempt_register']);
+$routes->post('/UserController/attemptLogin', 'UserController::attemptLogin', ['as' => 'attempt_login']);
 
 $routes->get('/dashboard', 'UserController::dashboard');
 

@@ -14,7 +14,19 @@ class UserController extends BaseController
     }
 
     public function attemptLogin() {
+        $users = new \App\Models\UserModel;
 
+        $username = $this->request->getPost("username");
+        $password = $this->request->getPost("password");
+
+        $user = $users->where('username', $username)->first();
+
+        if($user['password'] === $password) {
+            session()->set('user', $user['id']);
+            return redirect()->to('/dashboard');
+        } else {
+            return redirect()->to('/');
+        }
     }
 
     public function register() {

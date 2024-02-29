@@ -21,17 +21,16 @@
     <div class="panel panel-primary">
         <div class="panel-heading">Login to View Appointments</div>
         <div class="panel-body">
-            <form id="form" method="get">
+        <?= form_open("/UserController/attemptLogin", array('id' => 'create-form', 'enctype' => 'multipart/form-data'))?>
                 <label class="required-field" for="username"><b>Username:</b></label>
                 <input class="input" type="text" id="username" name="username">
                 <br><br>
                 <label class="required-field" for="password"><b>Password:</b></label>
                 <input class="input" type="password" id="password" name="password" maxlength="12">
                 <br><br>
-                <button  class="submit btn btn-primary" onclick="submit1()" >Login</button>
+                <button class="btn btn-primary" type="submit">Register</button>
                 <br><br>
-                <label>Do not have an account:</label>
-                <button type="reset" class="btn btn-secondary" onclick="register()">Register Now</button>
+                <p>Dont have an account? Register <a href="<?php echo base_url(); ?>/UserController/dashboard">here</a></p>
                 
             </form>
         </div>
@@ -62,6 +61,9 @@
         }
         
     }
+
+    submitForm();
+
 </script>
 
 <?= $this->endSection() ?>
