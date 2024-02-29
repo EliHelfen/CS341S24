@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-class Home extends BaseController
+class LoginController extends BaseController
 {
-    public function index(): string
+    public function index()
     {
-        return view('welcome_message');
+        return view('Login/login.php');
     }
 }
