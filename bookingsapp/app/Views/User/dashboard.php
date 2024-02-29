@@ -23,7 +23,7 @@
 <div class="navbar">
         <ul>
             <li><a href="<?php echo base_url(); ?>/UserController/dashboard">Home</a></li>
-            <li><a href="<?php echo base_url(); ?>/AppointmentController/bookAppointment">Book Appointment</a></li>
+            <li><a href="<?php echo base_url(); ?>/AppointmentController/book">Book Appointment</a></li>
             <li><a href="<?php echo base_url(); ?>/UserController/logout">Log Out</a></li>
         </ul>
 
@@ -69,17 +69,7 @@
                   </tr>
                 </tbody>
             </table>
-            <button type="reset" class="btn btn-primary" onclick="book()">Create Appointment</button>
-<!--_______________________________________________________________________________________-->
-                <br><br>
-                <label id="uname"><b>Username:</b></label>
-                <input type="text" id="username">
-                <br><br>
-                <label id="pswd"><b>Password:</b></label>
-                <input type="text" id="password" required>
-                <br><br>
- <!--_______________________________________________________________________________________-->            
-        </div>
+            <a href="<?php echo base_url(); ?>appointment/book">Book Appointment</a>
     </div>
 </div>
 

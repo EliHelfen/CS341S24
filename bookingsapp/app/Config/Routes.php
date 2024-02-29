@@ -12,4 +12,7 @@ $routes->post('/UserController/attemptLogin', 'UserController::attemptLogin', ['
 
 $routes->get('/dashboard', 'UserController::dashboard');
 
+$routes->get('/appointment/book', 'AppointmentController::book');
+
+
 
