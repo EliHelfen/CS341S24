@@ -33,18 +33,16 @@
     <div class="panel panel-primary">
         <div class="panel-heading">Book a New Appointment</div>
         <div class="panel-body">
+        <?= form_open("/AppointmentController/viewAvailable", array('id' => 'create-form', 'enctype' => 'multipart/form-data'))?>
             <label class="required-field" for="apptType" ><b>Select Type of Appointment:</b></label>
-            <select class="form-select" id="apptType" onchange="getProviders(this.value)">
-                <option value="1">Beauty</option>
-                <option value="2">Medical</option>
+            <select class="form-select" id="apptType" name="apptType" onchange="getProviders(this.value)">
+                <option value="1">Medical</option>
+                <option value="2">Beauty</option>
                 <option value="3">Fitness</option>
             </select>
-            <br><br>
-            <label class="required-field" for="provName" ><b>Select a Service Provider:</b></label>
-            <select class="form-select" id="provName" onchange="getAvailability(this.value)">
-                <option>Select an appointment type first</option>
-            </select>
-   
+            <button class="btn btn-primary" type="submit">View Available</button>
+
+        </form>
 
         </div>
     </div>

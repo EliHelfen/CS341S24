@@ -6,7 +6,11 @@ class AppointmentController extends BaseController
 {
     public function book()
     {
-        return view('Appointment/book.php');
+        $users = new \App\Models\UserModel;
+        $id = session()->get('user');
+
+        $user = $users->find($id);
+        return view('Appointment/book.php', ['user' => $user]);
     }
 
     public function createAppointment()
@@ -45,7 +49,8 @@ class AppointmentController extends BaseController
             'a_type' => $appointmentType,
             'a_description' => $this->request->getPost("description"),
             'a_date' => $this->request->getPost("date"),
-            'a_time' => $appointmentTime
+            'a_time' => $appointmentTime,
+            'a_status' => 'available'
             
 
         ]);
@@ -59,5 +64,32 @@ class AppointmentController extends BaseController
         }
 
         
+    }
+
+    public function viewAvailable() {
+        $model = new \App\Models\AppointmentModel;
+
+        $type = $this->request->getPost("apptType");
+        if($type === '1') {
+            $at = 'Medical';
+        } elseif($type === '2') {
+            $at = 'Beauty';
+        } elseif($type === '3') {
+            $at = 'Fitness';
+        }
+        $appointments = $model->where('a_type', $at)
+                               ->where('a_status', 'available')
+                               ->findAll();
+
+        $users = new \App\Models\UserModel;
+        $id = session()->get('user');
+                       
+        $user = $users->find($id);
+
+        return view('Appointment/viewAvailable.php', ['appointments' => $appointments, 'user' => $user]);
+    }
+
+    public function claimAppointment($id) {
+
     }
 }
