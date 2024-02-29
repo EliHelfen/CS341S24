@@ -7,6 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'UserController::login');
 $routes->get('/register', 'UserController::register');
+$routes->get('/UserController/logout', 'UserController::logout');
 $routes->post('/UserController/attemptRegister', 'UserController::attemptRegister', ['as' => 'attempt_register']);
 $routes->post('/UserController/attemptLogin', 'UserController::attemptLogin', ['as' => 'attempt_login']);
 

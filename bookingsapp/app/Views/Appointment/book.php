@@ -19,7 +19,7 @@
 <div class="navbar">
         <ul>
             <li><a href="<?php echo base_url(); ?>/UserController/dashboard">Home</a></li>
-            <li><a href="<?php echo base_url(); ?>/AppointmentController/bookAppointment">Book Appointment</a></li>
+            <li><a href="<?php echo base_url(); ?>/AppointmentController/book">Book Appointment</a></li>
             <li><a href="<?php echo base_url(); ?>/UserController/logout">Log Out</a></li>
         </ul>
 

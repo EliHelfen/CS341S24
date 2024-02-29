@@ -11,6 +11,13 @@ class UserController extends BaseController
 
     public function logout() {
 
+        if (session()->has('user')) {
+            session()->remove('user');
+        }
+
+        return view('User/login.php');
+
+
     }
 
     public function attemptLogin() {
