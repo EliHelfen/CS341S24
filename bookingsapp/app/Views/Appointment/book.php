@@ -18,8 +18,11 @@
 
 <div class="navbar">
         <ul>
-            <li><a href="<?php echo base_url(); ?>/UserController/dashboard">Home</a></li>
-            <li><a href="<?php echo base_url(); ?>/AppointmentController/book">Book Appointment</a></li>
+            <li><a href="<?php echo base_url(); ?>dashboard">Home</a></li>
+            <li><a href="<?php echo base_url(); ?>appointment/book">Book Appointment</a></li>
+            <?php if ($user['user_type'] === '2'): ?>
+              <li><a href="<?php echo base_url(); ?>appointment/create">Add Appointment</a></li>
+            <?php endif; ?>
             <li><a href="<?php echo base_url(); ?>/UserController/logout">Log Out</a></li>
         </ul>
 
