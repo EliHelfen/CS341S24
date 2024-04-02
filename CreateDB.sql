@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS User (
   Email NVARCHAR(45) NULL,
   Phone NVARCHAR(45) NULL,
   Type ENUM('user', 'provider', 'admin') NOT NULL,
-  PRIMARY KEY (UserID))
+  PRIMARY KEY (UserID)
+);
 
 DROP TABLE IF EXISTS Appointment;
 
@@ -19,18 +20,20 @@ CREATE TABLE IF NOT EXISTS Appointment (
   DateTime DATETIME NULL,
   Type ENUM('Medical', 'Beauty', 'Fitness') NULL,
   Information NVARCHAR(45) NULL,
-  PRIMARY KEY (AppointmentID))
+  PRIMARY KEY (AppointmentID)
+);
 
-DROP TABLE IF EXISTS AppointmentSlot ;
+DROP TABLE IF EXISTS AppointmentSlot;
 
 CREATE TABLE IF NOT EXISTS AppointmentSlot (
   AppointmentSlotID INT NOT NULL AUTO_INCREMENT,
   DateTime DATETIME NULL,
   Type ENUM('Medical', 'Beauty', 'Fitness') NULL,
   Information NVARCHAR(45) NULL,
-  PRIMARY KEY (AppointmentSlotID))
+  PRIMARY KEY (AppointmentSlotID)
+);
 
-DROP TABLE IF EXISTS UserAppointment ;
+DROP TABLE IF EXISTS UserAppointment;
 
 CREATE TABLE IF NOT EXISTS UserAppointment (
   UserAppointmentID INT NOT NULL AUTO_INCREMENT,
@@ -48,9 +51,10 @@ CREATE TABLE IF NOT EXISTS UserAppointment (
     FOREIGN KEY (UserID)
     REFERENCES User (UserID)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION
+);
 
-DROP TABLE IF EXISTS ProviderAppointment ;
+DROP TABLE IF EXISTS ProviderAppointment;
 
 CREATE TABLE IF NOT EXISTS ProviderAppointment (
   ProviderAppointmentID INT NOT NULL AUTO_INCREMENT,
@@ -72,7 +76,9 @@ CREATE TABLE IF NOT EXISTS ProviderAppointment (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT fk_ProviderAppointment_Appointment1
-    FOREIGN KEY (AppointmentID;)
+    FOREIGN KEY (AppointmentID)
     REFERENCES Appointment (AppointmentID)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION
+);
+
