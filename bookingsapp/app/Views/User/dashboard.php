@@ -46,6 +46,7 @@
                     <th scope="col">Type</th>
                     <th scope="col">Description</th>
                     <th scope="col">Service Provider</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -55,6 +56,7 @@
                     <td><?= $a['a_type'] ?></td>
                     <td><?= $a['a_description'] ?></td>
                     <td><?= $a['a_serviceProvider'] ?></td>
+                    <td><a href="<?php echo base_url(); ?>appointment/cancelAppointment/<?= $a['id']?>">Cancel Appointment</a></td>
                   <?php endforeach; ?>  
                 </tbody>
             </table>

@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Controllers;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 class AppointmentController extends BaseController
 {
@@ -106,6 +109,49 @@ class AppointmentController extends BaseController
 
         // $appointmentModel->where('a_id', $appointmentId)->set($data)->update();
         $appointmentModel->update($appointmentId, $data);
+
+
+        return redirect()->to('/dashboard');
+
+    }
+
+    public function cancelAppointment($appointmentId = null) {
+        $users = new \App\Models\UserModel;
+        $id = session()->get('user');
+                       
+        $user = $users->find($id);
+
+        $appointmentModel = new \App\Models\AppointmentModel;
+
+        $data = [
+            'a_status' => 'canceled',
+            'a_user' => '',
+            'a_userId' => 0
+
+        ];
+
+        // $appointmentModel->where('a_id', $appointmentId)->set($data)->update();
+        $appointmentModel->update($appointmentId, $data);
+
+        $mail = new PHPMailer(true);
+
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail->isSMTP();
+        $mail->Host = 'smtp.office365.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'spring2024bookingsappcs341@outlook.com';
+        $mail->Password = 'uwladminusercs341!';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+
+        $mail->setFrom('spring2024bookingsappcs341@outlook.com', 'Mailer');
+        $mail->addAddress('wixom3568@uwlax.edu', 'GreyWixom');
+
+        $mail->isHTML(true);
+        $mail->Subject = 'Appointment Canceled';
+        $mail->Body = '<h1>TEST<h1>';
+        $mail->AltBody = 'Failed to load HTML';
+        $mail->send();
 
 
         return redirect()->to('/dashboard');

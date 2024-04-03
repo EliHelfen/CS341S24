@@ -51,12 +51,14 @@
                 </thead>
                 <tbody>
                   <?php foreach ($appointments as $a): ?>
-                    <td><?= $a['a_date'] ?></td>
-                    <td><?= $a['a_time'] ?></td>
-                    <td><?= $a['a_type'] ?></td>
-                    <td><?= $a['a_description'] ?></td>
-                    <td><?= $a['a_serviceProvider'] ?></td>
-                    <td><a href="<?php echo base_url(); ?>appointment/claimAppointment/<?= $a['id']?>">Book Appointment</a></td>
+                    <tr>
+                      <td><?= $a['a_date'] ?></td>
+                      <td><?= $a['a_time'] ?></td>
+                      <td><?= $a['a_type'] ?></td>
+                      <td><?= $a['a_description'] ?></td>
+                      <td><?= $a['a_serviceProvider'] ?></td>
+                      <td><a href="<?php echo base_url(); ?>appointment/claimAppointment/<?= $a['id']?>">Book Appointment</a></td>
+                    </tr>
                   <?php endforeach; ?>  
                 </tbody>
             </table>

@@ -28,12 +28,21 @@ class UserController extends BaseController
 
         $user = $users->where('username', $username)->first();
 
-        if($user['password'] === $password) {
+        if (password_verify($password, $user['password'])) {
+            // The passwords match.
             session()->set('user', $user['id']);
             return redirect()->to('/dashboard');
         } else {
+            // The passwords do not match.
             return redirect()->to('/');
         }
+
+        // if($user['password'] === $password) {
+        //     session()->set('user', $user['id']);
+        //     return redirect()->to('/dashboard');
+        // } else {
+        //     return redirect()->to('/');
+        // }
     }
 
     public function register() {
@@ -46,6 +55,9 @@ class UserController extends BaseController
 
         $users = new \App\Models\UserModel;
 
+        $password = $this->request->getPost("password");
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
         $result = $users->insert([
             'first_name' => $this->request->getPost("firstName"),
             'last_name' => $this->request->getPost("lastName"),
@@ -53,7 +65,8 @@ class UserController extends BaseController
             'username' => $this->request->getPost("username"),
             'user_type' => $this->request->getPost("userType"),
             'sp_type' => $this->request->getPost("spType"),
-            'password' => $this->request->getPost("password")
+            // 'password' => $this->request->getPost("password")
+            'password' => $hashedPassword
 
         ]);
 

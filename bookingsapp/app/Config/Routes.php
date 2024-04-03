@@ -21,6 +21,8 @@ $routes->post('/AppointmentController/addAppointment', 'AppointmentController::a
 $routes->post('/AppointmentController/viewAvailable', 'AppointmentController::viewAvailable', ['as' => 'viewAvailable']);
 $routes->get('/appointment/claimAppointment/(:segment)', 'AppointmentController::claimAppointment/$1');
 
+$routes->get('/appointment/cancelAppointment/(:segment)', 'AppointmentController::cancelAppointment/$1');
+
 
 
 
