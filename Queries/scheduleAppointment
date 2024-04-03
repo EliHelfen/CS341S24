@@ -1,0 +1,18 @@
+-- Assuming the User with UserID N schedules an appointment on AppointmentSlot with AppointmentSlotID M
+
+-- Copying the appointment slot info into a new appointment
+INSERT INTO Appointment (DateTime, Type, Information)
+SELECT DateTime, Type, Information
+FROM AppointmentSlot
+WHERE AppointmentSlotID = M;
+
+-- Getting the AppointmentID of the newly inserted appointment
+SET @NewAppointmentID = LAST_INSERT_ID();
+
+-- Connecting the user to the appointment
+INSERT INTO UserAppointment (AppointmentID, UserID)
+VALUES (@NewAppointmentID, N);
+
+-- Removing the appointment slot
+DELETE FROM AppointmentSlot
+WHERE AppointmentSlotID = M;

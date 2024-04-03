@@ -1,0 +1,17 @@
+-- Inserting a new service provider
+INSERT INTO User (Username, Password, Email, Phone, Type)
+VALUES ('JaneSmith', 'password123', 'janesmith@example.com', '9876543210', 'provider');
+
+-- Getting the ProviderID of the newly inserted service provider
+SET @NewProviderID = LAST_INSERT_ID();
+
+-- Inserting a new appointment slot for the service provider
+INSERT INTO AppointmentSlot (DateTime, Type, Information)
+VALUES ('2024-04-02 14:00:00', 'Medical', 'Available for appointments');
+
+-- Getting the AppointmentSlotID of the newly inserted appointment slot
+SET @NewAppointmentSlotID = LAST_INSERT_ID();
+
+-- Inserting a new provider appointment for the newly inserted service provider
+INSERT INTO ProviderAppointment (ProviderID, AppointmentSlotID)
+VALUES (@NewProviderID, @NewAppointmentSlotID);
