@@ -1,0 +1,13 @@
+-- Assuming the Provider cancels an appointment with AppointmentID M
+
+-- Retrieving the UserID associated with the appointment
+SET @UserID = (SELECT UserID FROM UserAppointment WHERE AppointmentID = M);
+
+-- Deleting the appointment entirely
+DELETE FROM Appointment WHERE AppointmentID = M;
+
+-- Deleting the user's appointment record
+DELETE FROM UserAppointment WHERE AppointmentID = M AND UserID = @UserID;
+
+-- Notify the user with UserID @UserID that their appointment has been canceled
+-- You would need to implement the notification mechanism separately, as it's not part of SQL.

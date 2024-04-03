@@ -1,0 +1,14 @@
+-- Assuming the User with UserID N cancels an appointment with AppointmentID M
+
+-- Retrieving appointment details
+SET @AppointmentDateTime = (SELECT DateTime FROM Appointment WHERE AppointmentID = M);
+SET @AppointmentType = (SELECT Type FROM Appointment WHERE AppointmentID = M);
+SET @AppointmentInformation = (SELECT Information FROM Appointment WHERE AppointmentID = M);
+
+-- Inserting appointment details back into AppointmentSlot
+INSERT INTO AppointmentSlot (DateTime, Type, Information)
+VALUES (@AppointmentDateTime, @AppointmentType, @AppointmentInformation);
+
+-- Deleting the user's appointment record
+DELETE FROM UserAppointment
+WHERE AppointmentID = M AND UserID = N;
