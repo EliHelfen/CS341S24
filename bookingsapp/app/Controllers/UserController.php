@@ -31,10 +31,14 @@ class UserController extends BaseController
         if (password_verify($password, $user['password'])) {
             // The passwords match.
             session()->set('user', $user['id']);
-            if($user['user_type'] = 3) {
+            if($user['user_type'] === '3') {
                 return redirect()->to('/adminDashboard');
+            } elseif($user['user_type'] === '2') {
+                return redirect()->to('/serviceProviderDashboard');
+
             } else {
                 return redirect()->to('/dashboard');
+
             }
             
         } else {
@@ -94,10 +98,31 @@ class UserController extends BaseController
         $user = $users->find($id);
         $appointmentModel = new \App\Models\AppointmentModel;
 
+
         $appointments = $appointmentModel->where('a_userId', $user['id'])->findAll();
+        
+
+        
 
 
         return view('User/dashboard.php', ['user' => $user, 'appointments' => $appointments]);
+
+    }
+
+    public function serviceProviderDashboard() {
+        $users = new \App\Models\UserModel;
+        $id = session()->get('user');
+
+        $user = $users->find($id);
+        $appointmentModel = new \App\Models\AppointmentModel;
+
+        $appointments = $appointmentModel->where('a_SPId', $user['id'])->findAll();
+
+
+        
+
+
+        return view('User/serviceProviderDashboard.php', ['user' => $user, 'appointments' => $appointments]);
 
     }
 

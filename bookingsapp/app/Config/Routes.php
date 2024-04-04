@@ -24,6 +24,9 @@ $routes->get('/appointment/claimAppointment/(:segment)', 'AppointmentController:
 $routes->get('/appointment/cancelAppointment/(:segment)', 'AppointmentController::cancelAppointment/$1');
 
 $routes->get('/adminDashboard', 'UserController::adminDashboard');
+$routes->get('/serviceProviderDashboard', 'UserController::serviceProviderDashboard');
+
+$routes->get('/appointment/deleteAppointment/(:segment)', 'AppointmentController::deleteAppointment/$1');
 
 
 

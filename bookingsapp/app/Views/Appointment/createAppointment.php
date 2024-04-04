@@ -24,7 +24,9 @@
 <div class="navbar">
         <ul>
             <li><a href="<?php echo base_url(); ?>dashboard">Home</a></li>
-            <li><a href="<?php echo base_url(); ?>appointment/book">Book Appointment</a></li>
+            <?php if ($user['user_type'] === '1'): ?>
+              <li><a href="<?php echo base_url(); ?>appointment/book">Book Appointment</a></li>
+            <?php endif; ?>
             <?php if ($user['user_type'] === '2'): ?>
               <li><a href="<?php echo base_url(); ?>appointment/create">Add Appointment</a></li>
             <?php endif; ?>

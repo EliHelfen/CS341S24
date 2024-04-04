@@ -1,6 +1,6 @@
 <?= $this->extend("layouts/default") ?>
 
-<?= $this->section("title") ?>Login<?= $this->endSection() ?>
+<?= $this->section("title") ?>Service Provider Dashboard<?= $this->endSection() ?>
 
 <?= $this->section("headLinks") ?>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -47,7 +47,7 @@
                     <th scope="col">Time</th>
                     <th scope="col">Type</th>
                     <th scope="col">Description</th>
-                    <th scope="col">Service Provider</th>
+                    <th scope="col">User</th>
                     <th scope="col">Status</th>
                     <th></th>
                   </tr>
@@ -59,7 +59,7 @@
                     <td><?= $a['a_time'] ?></td>
                     <td><?= $a['a_type'] ?></td>
                     <td><?= $a['a_description'] ?></td>
-                    <td><?= $a['a_serviceProvider'] ?></td>
+                    <td><?= $a['a_user'] ?></td>
                     <td><?= $a['a_status'] ?></td>
                     <?php
 
@@ -77,14 +77,13 @@
                       // The $diff->invert property indicates the direction of the difference (0 if the current date is in the past, 1 if in the future)
 
                       if ($diff->invert == 1 && $diff->days > 1 || $a['a_status'] === 'Canceled By Provider' || $a['a_status'] === 'Canceled By User') {
-                          // If the specified date is within a day of the current date and is in the future
-                          echo '<td>Cancellation not available</td>';
-                      } else {
-                          // If the specified date is more than a day away from the current date
-                          echo '<td><a href="'. base_url() . 'appointment/cancelAppointment/' . $a['id'] . '">Cancel Appointment</a></td>';
-
-
-                        }
+                        // The specified date is more than a day away in the future; allow cancellation
+                        echo '<td>Cancellation not available</td>';
+                        
+                    } else {
+                        // The specified date is either within a day or has already passed; do not allow cancellation
+                        echo '<td><a href="'. base_url() . 'appointment/deleteAppointment/' . $a['id'] . '">Cancel Appointment Slot</a></td>';
+                    }
 
                     ?>
                     </tr>
