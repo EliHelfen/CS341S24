@@ -31,7 +31,12 @@ class UserController extends BaseController
         if (password_verify($password, $user['password'])) {
             // The passwords match.
             session()->set('user', $user['id']);
-            return redirect()->to('/dashboard');
+            if($user['user_type'] = 3) {
+                return redirect()->to('/adminDashboard');
+            } else {
+                return redirect()->to('/dashboard');
+            }
+            
         } else {
             // The passwords do not match.
             return redirect()->to('/');
@@ -93,6 +98,20 @@ class UserController extends BaseController
 
 
         return view('User/dashboard.php', ['user' => $user, 'appointments' => $appointments]);
+
+    }
+
+    public function adminDashboard() {
+        $users = new \App\Models\UserModel;
+        $id = session()->get('user');
+
+        $user = $users->find($id);
+        $appointmentModel = new \App\Models\AppointmentModel;
+
+        $appointments = $appointmentModel->findAll();
+
+
+        return view('User/adminDashboard.php', ['user' => $user, 'appointments' => $appointments]);
 
     }
 }

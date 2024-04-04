@@ -122,16 +122,7 @@ class AppointmentController extends BaseController
         $user = $users->find($id);
 
         $appointmentModel = new \App\Models\AppointmentModel;
-
-        $data = [
-            'a_status' => 'canceled',
-            'a_user' => '',
-            'a_userId' => 0
-
-        ];
-
-        // $appointmentModel->where('a_id', $appointmentId)->set($data)->update();
-        $appointmentModel->update($appointmentId, $data);
+        $appointment = $appointmentModel->find($appointmentId);
 
         $mail = new PHPMailer(true);
 
@@ -149,9 +140,33 @@ class AppointmentController extends BaseController
 
         $mail->isHTML(true);
         $mail->Subject = 'Appointment Canceled';
-        $mail->Body = '<h1>TEST<h1>';
+        $mail->Body = '    
+        <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h2 style="color: #d9534f;">Appointment Canceled</h2>
+        <p>Hello,</p>
+        <p>Unfortunately, we must inform you that your upcoming appointment has been canceled. Please see the details below:</p>
+        <ul>
+            <li><strong>Service Provider: '. $appointment['a_serviceProvider'] .'</strong></li>
+            <li><strong>Date:</strong> '. $appointment['a_date'] .'</li>
+            <li><strong>Time:</strong> '. $appointment['a_time'] .'</li>
+            <li><strong>Description:</strong> '. $appointment['a_description'] .'</li>
+        </ul>
+        <p>We apologize for any inconvenience this may cause. If you have any questions or need to reschedule, please contact us at your earliest convenience.</p>
+    </div>';
         $mail->AltBody = 'Failed to load HTML';
         $mail->send();
+
+        $data = [
+            'a_status' => 'canceled',
+            'a_user' => '',
+            'a_userId' => 0
+
+        ];
+
+        // $appointmentModel->where('a_id', $appointmentId)->set($data)->update();
+        $appointmentModel->update($appointmentId, $data);
+
+ 
 
 
         return redirect()->to('/dashboard');

@@ -23,6 +23,8 @@ $routes->get('/appointment/claimAppointment/(:segment)', 'AppointmentController:
 
 $routes->get('/appointment/cancelAppointment/(:segment)', 'AppointmentController::cancelAppointment/$1');
 
+$routes->get('/adminDashboard', 'UserController::adminDashboard');
+
 
 
 
