@@ -3,8 +3,11 @@
 -- Retrieving the UserID associated with the appointment
 SET @UserID = (SELECT UserID FROM UserAppointment WHERE AppointmentID = M);
 
--- Deleting the appointment entirely
-DELETE FROM Appointment WHERE AppointmentID = M;
+-- Moving the appointment details to the Cancelled table
+INSERT INTO Cancelled (DateTime, Type, Information, AppointmentSlotID)
+SELECT DateTime, Type, Information, AppointmentSlotID
+FROM Appointment
+WHERE AppointmentID = M;
 
 -- Deleting the user's appointment record
 DELETE FROM UserAppointment WHERE AppointmentID = M AND UserID = @UserID;
