@@ -29,7 +29,10 @@
             <?php if ($user['user_type'] === '2'): ?>
               <li><a href="<?php echo base_url(); ?>appointment/create">Add Appointment</a></li>
             <?php endif; ?>
+            <li><a href="/userManual.pdf" download >User Manual</a></li>
+
             <li><a href="<?php echo base_url(); ?>/UserController/logout">Log Out</a></li>
+
         </ul>
 
     </div>
@@ -63,24 +66,17 @@
                     <td><?= $a['a_status'] ?></td>
                     <?php
 
-                      // The date you want to compare with, in 'Y-m-d' format
                       $specifiedDate = $a['a_date'];
 
-                      // Convert both current date and specified date into DateTime objects
-                      $currentDate = new DateTime(); // This will use the current date by default
+                      $currentDate = new DateTime();
                       $targetDate = new DateTime($specifiedDate);
 
-                      // Calculate the difference between the two dates
                       $diff = $currentDate->diff($targetDate);
 
-                      // The $diff->days property holds the total number of days difference
-                      // The $diff->invert property indicates the direction of the difference (0 if the current date is in the past, 1 if in the future)
 
                       if ($diff->invert == 1 && $diff->days > 1 || $a['a_status'] === 'Canceled By Provider' || $a['a_status'] === 'Canceled By User') {
-                          // If the specified date is within a day of the current date and is in the future
                           echo '<td>Cancellation not available</td>';
                       } else {
-                          // If the specified date is more than a day away from the current date
                           echo '<td><a href="'. base_url() . 'appointment/cancelAppointment/' . $a['id'] . '">Cancel Appointment</a></td>';
 
 

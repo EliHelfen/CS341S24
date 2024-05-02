@@ -1,6 +1,6 @@
 <?= $this->extend("layouts/default") ?>
 
-<?= $this->section("title") ?>Login<?= $this->endSection() ?>
+<?= $this->section("title") ?>Admin Dashboard<?= $this->endSection() ?>
 
 <?= $this->section("headLinks") ?>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -22,13 +22,9 @@
 
 <div class="navbar">
         <ul>
-            <li><a href="<?php echo base_url(); ?>dashboard">Home</a></li>
-            <li><a href="<?php echo base_url(); ?>appointment/book">Book Appointment</a></li>
-            <?php if ($user['user_type'] === '2'): ?>
-              <li><a href="<?php echo base_url(); ?>appointment/create">Add Appointment</a></li>
-            <?php endif; ?>
-            <li><a href="/userManual.pdf" download >User Manual</a></li>
-
+            <li><a href="<?php echo base_url(); ?>/adminDashboard">Appointments</a></li>
+            <li><a href="<?php echo base_url(); ?>/adminDashboardAccounts">Accounts</a></li>
+            <li><a href="<?php echo base_url(); ?>/admin/search">Generate Report</a></li>
             <li><a href="<?php echo base_url(); ?>/UserController/logout">Log Out</a></li>
         </ul>
 
@@ -39,32 +35,46 @@
     <div class="panel panel-primary">
         <div id="welcome" class="panel-heading">Welcome <?= $user['first_name'] ?></div>
         <div class="panel-body">
-            <h3>Current Appointments:</h3>
+            <h3>Appointment Log:</h3>
+            <h4>Total Active Appointments-- Medical: <?= $counters['Medical'] ?> -- Beauty: <?= $counters['Beauty'] ?> -- Fitness: <?= $counters['Fitness'] ?></h4>
             <table class="table table-striped table-bordered table-sm" id="apptTbl">
                 <thead>
                   <tr>
+                    <th scope="col">Appointment ID</th>
+                    <th scope="col">Appointment User</th>
+                    <th scope="col">Appointment Status</th>
+                    <th scope="col">Service Provider</th>
                     <th scope="col">Date</th>
                     <th scope="col">Time</th>
                     <th scope="col">Type</th>
                     <th scope="col">Description</th>
-                    <th scope="col">Service Provider</th>
-                    <th>Book Now</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php foreach ($appointments as $a): ?>
                     <tr>
-                      <td><?= $a['a_date'] ?></td>
-                      <td><?= $a['a_time'] ?></td>
-                      <td><?= $a['a_type'] ?></td>
-                      <td><?= $a['a_description'] ?></td>
-                      <td><?= $a['a_serviceProvider'] ?></td>
-                      <td><a href="<?php echo base_url(); ?>appointment/claimAppointment/<?= $a['id']?>">Book Appointment</a></td>
+                    <td><?= $a['id'] ?></td>
+                    <td><?= $a['a_user'] ?></td>
+                    <td><?= $a['a_status'] ?></td>
+                    <td><?= $a['a_serviceProvider'] ?></td>
+                    <td><?= $a['a_date'] ?></td>
+                    <td><?= $a['a_time'] ?></td>
+                    <td><?= $a['a_type'] ?></td>
+                    <td><?= $a['a_description'] ?></td>
+                    <?php
+
+                        if($a['a_status'] === 'Canceled By Provider' || $a['a_status'] === 'Canceled By User' || $a['a_status'] === 'Canceled By Admin') {
+                            echo '<td>Cancellation not available</td>';
+                        } else {
+                            echo '<td><a href="'. base_url() . 'appointment/cancelAppointmentAdmin/' . $a['id'] . '">Cancel Appointment</a></td>';
+                        }
+
+                    ?>                    
                     </tr>
                   <?php endforeach; ?>  
                 </tbody>
             </table>
-            <a href="<?php echo base_url(); ?>appointment/book">Book Appointment</a>
     </div>
 </div>
 
@@ -91,9 +101,6 @@
     function book(){
         window.location.href = "bookAppointment.html?username=" + $("#username").val();
     }
-
-    submitForm();
-
     
 </script>
 

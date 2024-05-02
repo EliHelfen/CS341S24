@@ -7,6 +7,7 @@ use PHPMailer\PHPMailer\Exception;
 
 class AppointmentController extends BaseController
 {
+    //returns book view
     public function book()
     {
         $users = new \App\Models\UserModel;
@@ -16,6 +17,7 @@ class AppointmentController extends BaseController
         return view('Appointment/book.php', ['user' => $user]);
     }
 
+    //returns create appointment view
     public function createAppointment()
     {
         $users = new \App\Models\UserModel;
@@ -25,11 +27,9 @@ class AppointmentController extends BaseController
         return view('Appointment/createAppointment.php', ['user' => $user]);
     }
 
+    //Inserts appointment into database using data from site
     public function addAppointment() {
         $appointments = new \App\Models\AppointmentModel;
-        // medical 1
-        // beauty 2
-        // fitness 3
 
         $type = $this->request->getPost("a_type");
         if($type === '1') {
@@ -69,6 +69,8 @@ class AppointmentController extends BaseController
         
     }
 
+    //Cancels appointment from SP
+    //sends update via email
     public function deleteAppointment($id) {
         $appointments = new \App\Models\AppointmentModel;
         $appointment = $appointments->find($id);
@@ -110,8 +112,6 @@ class AppointmentController extends BaseController
 
         ];
 
-        // $appointmentModel->where('a_id', $appointmentId)->set($data)->update();
-
         $appointmentModel = new \App\Models\AppointmentModel;
 
         $appointmentModel->update($id, $data);
@@ -119,6 +119,7 @@ class AppointmentController extends BaseController
         return redirect()->to("/serviceProviderDashboard");
     }
 
+    //returns view with all available appointments
     public function viewAvailable() {
         $model = new \App\Models\AppointmentModel;
 
@@ -146,6 +147,7 @@ class AppointmentController extends BaseController
         return view('Appointment/viewAvailable.php', ['appointments' => $appointments, 'user' => $user]);
     }
 
+    //Claims appointment from available
     public function claimAppointment($appointmentId = null) {
         $users = new \App\Models\UserModel;
         $id = session()->get('user');
@@ -161,15 +163,68 @@ class AppointmentController extends BaseController
 
         ];
 
-        // $appointmentModel->where('a_id', $appointmentId)->set($data)->update();
         $appointmentModel->update($appointmentId, $data);
 
+        return redirect()->to('/dashboard');
+    }
+
+    //Cancels appointment called by user
+    //Sends update via email
+    public function cancelAppointment($appointmentId = null) {
+        $users = new \App\Models\UserModel;
+        $id = session()->get('user');
+                       
+        $user = $users->find($id);
+
+        $appointmentModel = new \App\Models\AppointmentModel;
+        $appointment = $appointmentModel->find($appointmentId);
+
+        $mail = new PHPMailer(true);
+
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail->isSMTP();
+        $mail->Host = 'smtp.office365.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'spring2024bookingsappcs341@outlook.com';
+        $mail->Password = 'uwladminusercs341!';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+
+        $mail->setFrom('spring2024bookingsappcs341@outlook.com', 'Mailer');
+        $mail->addAddress('wixom3568@uwlax.edu', 'GreyWixom');
+
+        $mail->isHTML(true);
+        $mail->Subject = 'Appointment Canceled';
+        $mail->Body = '    
+        <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h2 style="color: #d9534f;">Appointment Canceled</h2>
+        <p>Hello,</p>
+        <p>Unfortunately, we must inform you that your upcoming appointment has been canceled. Please see the details below:</p>
+        <ul>
+            <li><strong>Service Provider: '. $appointment['a_serviceProvider'] .'</strong></li>
+            <li><strong>Date:</strong> '. $appointment['a_date'] .'</li>
+            <li><strong>Time:</strong> '. $appointment['a_time'] .'</li>
+            <li><strong>Description:</strong> '. $appointment['a_description'] .'</li>
+        </ul>
+        <p>We apologize for any inconvenience this may cause. If you have any questions or need to reschedule, please contact us at your earliest convenience.</p>
+    </div>';
+        $mail->AltBody = 'Failed to load HTML';
+        $mail->send();
+
+        $data = [
+            'a_status' => 'Canceled By User'
+
+        ];
+
+        $appointmentModel->update($appointmentId, $data);
 
         return redirect()->to('/dashboard');
 
     }
 
-    public function cancelAppointment($appointmentId = null) {
+    //Cancels appointment called by admin
+    //sends update via email
+    public function cancelAppointmentAdmin($appointmentId = null) {
         $users = new \App\Models\UserModel;
         $id = session()->get('user');
                        
@@ -212,17 +267,13 @@ class AppointmentController extends BaseController
 
 
         $data = [
-            'a_status' => 'Canceled By User'
+            'a_status' => 'Canceled By Admin'
 
         ];
 
-        // $appointmentModel->where('a_id', $appointmentId)->set($data)->update();
         $appointmentModel->update($appointmentId, $data);
 
- 
-
-
-        return redirect()->to('/dashboard');
+        return redirect()->to("/adminDashboard");
 
     }
 }

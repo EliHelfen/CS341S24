@@ -22,6 +22,9 @@
 
 <div class="navbar">
         <ul>
+            <li><a href="<?php echo base_url(); ?>/adminDashboard">Appointments</a></li>
+            <li><a href="<?php echo base_url(); ?>/adminDashboardAccounts">Accounts</a></li>
+            <li><a href="<?php echo base_url(); ?>/admin/search">Generate Report</a></li>
             <li><a href="<?php echo base_url(); ?>/UserController/logout">Log Out</a></li>
         </ul>
 
@@ -44,6 +47,7 @@
                     <th scope="col">Time</th>
                     <th scope="col">Type</th>
                     <th scope="col">Description</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -57,6 +61,15 @@
                     <td><?= $a['a_time'] ?></td>
                     <td><?= $a['a_type'] ?></td>
                     <td><?= $a['a_description'] ?></td>
+                    <?php
+
+                        if($a['a_status'] === 'Canceled By Provider' || $a['a_status'] === 'Canceled By User' || $a['a_status'] === 'Canceled By Admin') {
+                            echo '<td>Cancellation not available</td>';
+                        } else {
+                            echo '<td><a href="'. base_url() . 'appointment/cancelAppointmentAdmin/' . $a['id'] . '">Cancel Appointment</a></td>';
+                        }
+
+                    ?>                    
                     </tr>
                   <?php endforeach; ?>  
                 </tbody>

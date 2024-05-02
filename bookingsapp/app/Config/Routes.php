@@ -23,10 +23,21 @@ $routes->get('/appointment/claimAppointment/(:segment)', 'AppointmentController:
 
 $routes->get('/appointment/cancelAppointment/(:segment)', 'AppointmentController::cancelAppointment/$1');
 
+
 $routes->get('/adminDashboard', 'UserController::adminDashboard');
+$routes->get('/admin/search', 'UserController::adminSearch');
+$routes->post('/UserController/generateAdminReport', 'UserController::generateAdminReport');
+
+
+$routes->get('/adminDashboardAccounts', 'UserController::adminDashboardUsers');
 $routes->get('/serviceProviderDashboard', 'UserController::serviceProviderDashboard');
 
 $routes->get('/appointment/deleteAppointment/(:segment)', 'AppointmentController::deleteAppointment/$1');
+$routes->get('/admin/enableAccount/(:segment)', 'UserController::enableAccount/$1');
+$routes->get('/admin/disableAccount/(:segment)', 'UserController::disableAccount/$1');
+$routes->get('/error', 'UserController::error');
+$routes->get('/appointment/cancelAppointmentAdmin/(:segment)', 'AppointmentController::cancelAppointmentAdmin/$1');
+
 
 
 

@@ -23,6 +23,8 @@
             <?php if ($user['user_type'] === '2'): ?>
               <li><a href="<?php echo base_url(); ?>appointment/create">Add Appointment</a></li>
             <?php endif; ?>
+            <li><a href="/userManual.pdf" download >User Manual</a></li>
+
             <li><a href="<?php echo base_url(); ?>/UserController/logout">Log Out</a></li>
         </ul>
 
